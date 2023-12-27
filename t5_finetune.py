@@ -65,12 +65,12 @@ def parse_args():
     parser.add_argument('--epochs',type=int,default=3)
     parser.add_argument('--batch_size',type=int,default=8)
     parser.add_argument('--gradient_accumulation_steps',type=int,default=1)
-
+   
     return parser.parse_args()
 
 def main():
     args = parse_args()
-
+    output_dir = args.output_dir
     task = args.tasks
     batch_size = args.batch_size
     epochs = args.epochs
@@ -100,7 +100,7 @@ def main():
 
     print(f"Starting training with batch size:{batch_size}\n\nepochs:{epochs}\n\ngradient_accumulation_steps:{gradient_accumulation_steps}")    
     training_args = TrainingArguments(
-        output_dir=f"trained_model/flan_t5_multi_task_orca{','.join(task)}",
+        output_dir=f"trained_model/{output_dir}{','.join(task)}",
         learning_rate=1e-3,
         gradient_accumulation_steps=gradient_accumulation_steps,
         evaluation_strategy='no',
